@@ -2,97 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yunhee Han</title>
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #fffaf7;
-      color: #5c4b51;
+      font-family: 'Gowun Dodum', sans-serif;
+      background-color: #fff8f5;
+      color: #444;
       margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    img.profile {
-      width: 220px;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
+      padding: 30px;
     }
 
     h1 {
-      font-size: 2rem;
-      color: #d07fa5;
+      font-family: 'Cute Font', cursive;
+      font-size: 2.5em;
+      color: #c27ba0;
+      margin-bottom: 20px;
     }
 
-    p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin: 1rem 0;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: center;
     }
 
-    .links a {
-      display: inline-block;
-      margin: 0.5rem;
-      padding: 0.6rem 1.2rem;
+    .photo {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .photo img {
+      width: 80%;
+      max-width: 280px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+      flex: 2;
+      min-width: 300px;
+      padding: 20px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .button {
+      background-color: #e8b8c8;
+      color: white;
+      padding: 12px 24px;
+      margin: 8px;
+      border-radius: 25px;
       text-decoration: none;
-      color: #fff;
-      background-color: #f6b9c6;
-      border-radius: 20px;
-      font-weight: 600;
-      transition: all 0.3s ease;
+      font-weight: bold;
+      display: inline-block;
+      transition: background-color 0.3s;
+      font-family: 'Cute Font', cursive;
+      font-size: 1.2em;
     }
 
-    .links a:hover {
-      background-color: #e69aaa;
+    .button:hover {
+      background-color: #d28bb0;
     }
 
-    .emoji {
-      font-size: 1.3rem;
-      margin-right: 0.3rem;
+    .email {
+      margin-top: 30px;
+      font-size: 1em;
+      text-align: center;
     }
 
-    .footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #aaa;
+    .email a {
+      color: #c27ba0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .email a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="your-photo.jpg" alt="Yunhee Han" class="profile" />
-    <h1>Hello🪽🐰 I’m Yunhee Han</h1>
-    <p>
-      I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.<br/>
-      I’m into Management Science and HR (but honestly, I think every part of business is kinda fun ♥️).<br/>
-      Maybe I’ll stay in academia—or maybe I’ll explore a startup path in HR! Still figuring it out with an open heart 💫<br/>
-      Outside of business, I also love things like neuroscience🧠, psychology, algorithms, and AI.
-    </p>
-    <p>
-      I’ve worked on multiple startup projects, some even reaching prototype or actual release. <br/>
-      I read a lot—books 📚 or research on topics I love. I enjoy classical music, going to concerts, and taking flute lessons. 🎶<br/>
-      Also into tennis 🎾, cute cafés with friends, and… just appreciating all the little joys 💖
-    </p>
 
-    <div class="links">
-      <a href="https://m.blog.naver.com/tokilanders" target="_blank"><span class="emoji">🫧</span>My Daily Blog</a>
-      <a href="https://www.linkedin.com/in/yunhee-han-katherine/" target="_blank"><span class="emoji">🦄</span>My CV</a>
-      <a href="https://vsco.co/yunheeverse" target="_blank"><span class="emoji">🩷</span>My Photos</a>
+  <div class="container">
+    <!-- 사진 영역 -->
+    <div class="photo">
+      <img src="yunhee.jpg" alt="Yunhee's photo">
     </div>
 
-    <div class="footer">
-      Email me: katherinehan@ewhain.net
+    <!-- 자기소개 글 영역 -->
+    <div class="content">
+      <h1>Hello 🪽 🐰 I’m Yunhee Han🦢</h1>
+      <p>I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.</p>
+      <p>I’m into Management Science and HR. </p>
+      <p>(But honestly, I think every part of business is kinda fun ❤️).</p>
+      <p>I'm thinking about staying in the research field in the future, but nothing is set in stone yet. 🍥Still figuring out with an open heart.☁️</p>
+      <p>Outside of business, I also love things like 
+neuroscience🧠, psychology, algorithms, and AI.</p>
+      <p>I’ve worked on multiple startup projects, some even reaching prototype or actual release.</p>
+      <p>When I'm not working, I read books 📚 or research on topics I love. </p>
+       <p>I enjoy classical music, going to concerts, and taking flute lessons too. 🎶</p>
+
+      <!-- 버튼 영역 -->
+      <div class="buttons">
+        <a href="https://m.blog.naver.com/tokilanders" class="button" target="_blank">🫧 My Daily Life (Naver Blog)</a>
+        <a href="https://www.linkedin.com/in/yunhee-han-katherine/" class="button" target="_blank">🦄 My Resume (LinkedIn)</a>
+        <a href="https://vsco.co/yunheeverse" class="button" target="_blank">🩷 My Photo Diary (VSCO)</a>
+        <a href="mailto:katherinehan@ewhain.net" class="button">💌 Email Me!</a>
+      </div>
+
+     
+      </div>
     </div>
   </div>
+
 </body>
 </html>
-
