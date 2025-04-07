@@ -2,161 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yunhee Han</title>
-
-  
-  <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Gowun+Dodum&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Gowun Dodum', sans-serif;
-      background-color: #fff8f5;
-      color: #444;
+      background-color: #fffaf7;
+      color: #5c4b51;
       margin: 0;
-      padding: 30px;
-      @media (max-width: 600px) {
-  .container {
-    padding: 1.5rem 1rem;
-  }
-
-  img.profile {
-    width: 160px;
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    line-height: 1.3;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .links a {
-    display: block;
-    width: 90%;
-    margin: 0.6rem auto;
-    font-size: 1rem;
-  }
-
-  .footer {
-    font-size: 0.8rem;
-    margin-top: 2rem;
-  }
-}
-
-    }
-
-    h1 {
-      font-family: 'Cute Font', cursive;
-      font-size: 2.5em;
-      color: #c27ba0;
-      margin-bottom: 20px;
+      padding: 0;
     }
 
     .container {
       display: flex;
-      flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 0 auto;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      gap: 2rem;
     }
 
-    .photo {
-      flex: 1;
-      min-width: 250px;
-      text-align: center;
-      padding: 20px;
+    .profile-pic {
+      flex-shrink: 0;
     }
 
-    .photo img {
-      width: 80%;
-      max-width: 280px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    img.profile {
+      width: 220px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .content {
-      flex: 2;
-      min-width: 300px;
-      padding: 20px;
+      max-width: 600px;
     }
 
-    .buttons {
-      margin-top: 30px;
+    h1 {
+      font-size: 2rem;
+      color: #d07fa5;
+      margin-top: 0.5rem;
     }
 
-    .button {
-      background-color: #e8b8c8;
-      color: white;
-      padding: 12px 24px;
-      margin: 8px;
-      border-radius: 25px;
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 1rem 0;
+    }
+
+    .links {
+      margin-top: 1.5rem;
+    }
+
+    .links a {
+      display: block;
+      margin: 0.5rem 0;
+      padding: 0.6rem 1.2rem;
       text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      transition: background-color 0.3s;
-      font-family: 'Cute Font', cursive;
-      font-size: 1.2em;
+      color: #fff;
+      background-color: #f6b9c6;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: fit-content;
     }
 
-    .button:hover {
-      background-color: #d28bb0;
+    .links a:hover {
+      background-color: #e69aaa;
     }
 
-    .email {
-      margin-top: 30px;
-      font-size: 1em;
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #aaa;
       text-align: center;
     }
 
-    .email a {
-      color: #c27ba0;
-      text-decoration: none;
-      font-weight: bold;
-    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 1.5rem;
+        text-align: center;
+      }
 
-    .email a:hover {
-      text-decoration: underline;
+      img.profile {
+        width: 180px;
+      }
+
+      .links a {
+        margin: 0.4rem auto;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <!-- 사진 영역 -->
-    <div class="photo">
-      <img src="yunhee.jpg" alt="Yunhee's photo">
+    <div class="profile-pic">
+      <img src="yunhee.jpg" alt="Yunhee Han" class="profile" />
     </div>
-
-    <!-- 자기소개 글 영역 -->
     <div class="content">
-      <h1>Hello 🪽 🐰 I’m Yunhee Han🦢</h1>
-      <p>I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.</p>
-      <p>I’m into Management Science and HR. </p>
-      <p>(But honestly, I think every part of business is kinda fun ❤️).</p>
-      <p>I'm thinking about staying in the research field in the future, but nothing is set in stone yet. 🍥Still figuring out with an open heart.☁️</p>
-      <p>Outside of business, I also love things like 
-neuroscience🧠, psychology, algorithms, and AI.</p>
-      <p>I’ve worked on multiple startup projects, some even reaching prototype or actual release.</p>
-      <p>When I'm not working, I read books 📚 or research on topics I love. </p>
-       <p>I enjoy classical music, going to concerts, and taking flute lessons too. 🎶</p>
+      <h1>Hello🪽🐰 I’m Yunhee Han</h1>
+      <p>
+        I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.<br/>
+        I’m into Management Science and HR (but honestly, I think every part of business is kinda fun ♥️).<br/>
+        Maybe I’ll stay in academia—or maybe I’ll explore a startup path in HR! Still figuring it out with an open heart 💫<br/>
+        Outside of business, I also love things like neuroscience🧠, psychology, algorithms, and AI.
+      </p>
+      <p>
+        I’ve worked on multiple startup projects, some even reaching prototype or actual release. <br/>
+        I read a lot—books 📚 or research on topics I love. I enjoy classical music, going to concerts, and taking flute lessons. 🎶<br/>
+        Also into tennis 🎾, cute cafés with friends, and… just appreciating all the little joys 💖
+      </p>
 
-      <!-- 버튼 영역 -->
-      <div class="buttons">
-        <a href="https://m.blog.naver.com/tokilanders" class="button" target="_blank">🫧 My Daily Life (Naver Blog)</a>
-        <a href="https://www.linkedin.com/in/yunhee-han-katherine/" class="button" target="_blank">🦄 My Resume (LinkedIn)</a>
-        <a href="https://vsco.co/yunheeverse" class="button" target="_blank">🩷 My Photo Diary (VSCO)</a>
-        <a href="mailto:katherinehan@ewhain.net" class="button">💌 Email Me!</a>
-      </div>
-
-     
+      <div class="links">
+        <a href="https://m.blog.naver.com/tokilanders" target="_blank">🫧 My Daily Life (Naver Blog)</a>
+        <a href="https://www.linkedin.com/in/yunhee-han-katherine/" target="_blank">🦄 My Resume (LinkedIn)</a>
+        <a href="https://vsco.co/yunheeverse" target="_blank">🩷 My Photo Diary (VSCO)</a>
+        <a href="mailto:katherinehan@ewhain.net">💌 Email Me!</a>
       </div>
     </div>
   </div>
 
+  <div class="footer">
+    Made with 💗 by Yunhee
+  </div>
 </body>
 </html>
+
