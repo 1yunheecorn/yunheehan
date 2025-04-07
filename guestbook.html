@@ -161,7 +161,7 @@
       const form = e.target;
       const formData = new FormData(form);
 
-      const webhookUrl = "https://script.google.com/macros/s/AKfycbwqI4IdHj0zgLd0g2FyOwlob6aBGf4SC7GfTN5RHEKHSFgQFyV9NARBTJn6lX06PxYq/exec";
+      const webhookUrl = "https://script.google.com/macros/s/AKfycbzL-xo_QQWfsjUEguGNw7wMY8njmvfCX4rR3Q_FZpmuEzCD81iVtmKwEnXgWazGNtqg/exec";
 
       try {
         const res = await fetch(webhookUrl, {
@@ -223,7 +223,7 @@
 
   // 서버에서 데이터 받아와서 캐릭터 생성
   async function loadCharacters() {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwqI4IdHj0zgLd0g2FyOwlob6aBGf4SC7GfTN5RHEKHSFgQFyV9NARBTJn6lX06PxYq/exec");
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzL-xo_QQWfsjUEguGNw7wMY8njmvfCX4rR3Q_FZpmuEzCD81iVtmKwEnXgWazGNtqg/exec");
     const data = await response.json();
 
     data.forEach((entry, index) => {
@@ -237,7 +237,7 @@
 
   <script>
   // Google Apps Script의 GET용 웹앱 URL
-  const DATA_URL = "https://script.google.com/macros/s/AKfycbwqI4IdHj0zgLd0g2FyOwlob6aBGf4SC7GfTN5RHEKHSFgQFyV9NARBTJn6lX06PxYq/exec";
+  const DATA_URL = "https://script.google.com/macros/s/AKfycbzL-xo_QQWfsjUEguGNw7wMY8njmvfCX4rR3Q_FZpmuEzCD81iVtmKwEnXgWazGNtqg/exec";
 
   // 페이지 로드 시 실행
   window.addEventListener("DOMContentLoaded", () => {
