@@ -87,7 +87,7 @@
   </nav>
 
   <!-- Guestbook Form -->
-  <form class="guestbook-form" action="https://script.google.com/macros/s/AKfycbxes5A6qdTrW0i8ifcM5tJUngbQRENwB7D9f4eXTJXgZIKulD5nggUM7bkk8S4cBR62/exec" method="POST">
+  <form class="guestbook-form" method="POST">
     <label>🐣 Nickname:
       <input type="text" name="nickname" required>
     </label>
@@ -117,6 +117,31 @@
 
     <button type="submit">🌸 Submit to Guestbook</button>
   </form>
+
+  <script>
+    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form); // FormData 사용
+
+      const webhookUrl = "https://script.google.com/macros/s/AKfycbzrpf23pNtj-593C0RPUB7NAzKju8DOFkYAhMSaxSTE1dJZBetN_MGEDZQbM2or2ygz/exec"; // 너의 URL
+
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          body: formData
+        });
+
+        const text = await res.text();
+        console.log(text);
+        alert("Thank you! Your message has been saved 🐾");
+        form.reset();
+      } catch (err) {
+        alert("Oops! Something went wrong. Please try again.");
+      }
+    });
+  </script>
 
 </body>
 </html>
