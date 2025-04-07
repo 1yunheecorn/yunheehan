@@ -75,6 +75,36 @@
     .guestbook-form button:hover {
       background-color: #ff85a2;
     }
+    .meadow {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(to top, #c6f5c6 50%, #fff0f5 50%);
+  border: 3px dashed #a0d6a0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 50px;
+}
+.animal {
+  position: absolute;
+  width: 80px;
+  transition: transform 1s ease;
+}
+.speech-bubble {
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 150px;
+}
+
   </style>
 </head>
 <body>
@@ -119,6 +149,10 @@
 
     <button type="submit">🌸 Submit to Guestbook</button>
   </form>
+<!-- 캐릭터들이 돌아다니는 초원 -->
+<div class="meadow">
+  <!-- 여기 나중에 JS로 캐릭터들을 추가할 거야 -->
+</div>
 
   <script>
     document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
