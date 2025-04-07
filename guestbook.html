@@ -108,7 +108,7 @@
   </style>
 </head>
 <body>
-
+<div id="guestbook-entries"></div>
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
@@ -161,7 +161,7 @@
       const form = e.target;
       const formData = new FormData(form);
 
-      const webhookUrl = "https://script.google.com/macros/s/AKfycbyJ7-HCCGqfjrvxOSwVghAZIw28x7Dj61E49JfqYol5ziO0PR8b_GLbhPRN8DvXl_y9/exec";
+      const webhookUrl = "https://script.google.com/macros/s/AKfycby9G1Abc1nAeHKY5gcGpoQJtfUPlGkXVKI-woXE4YClWhx0u8dKBGO_kfLnXM4s4LKC/exec";
 
       try {
         const res = await fetch(webhookUrl, {
@@ -192,6 +192,54 @@
       }
     });
   </script>
+  <script>
+  // Google Apps Script의 GET용 웹앱 URL
+  const DATA_URL = "https://script.google.com/macros/s/AKfycby9G1Abc1nAeHKY5gcGpoQJtfUPlGkXVKI-woXE4YClWhx0u8dKBGO_kfLnXM4s4LKC/exec";
+
+  // 페이지 로드 시 실행
+  window.addEventListener("DOMContentLoaded", () => {
+    fetch(DATA_URL)
+      .then(res => res.json())
+      .then(data => {
+        displayAnimals(data);
+      })
+      .catch(err => console.error("데이터 불러오기 오류:", err));
+  });
+
+  function displayAnimals(entries) {
+    const meadow = document.querySelector(".meadow");
+
+    entries.forEach(entry => {
+      const animal = document.createElement("div");
+      animal.className = "animal";
+
+      const img = document.createElement("img");
+      img.src = `images/${entry.character}.png`; // images 폴더에 이미지가 있어야 해!
+      img.alt = entry.character;
+      img.style.width = "100%";
+
+      // 캐릭터 위치 무작위 설정
+      const left = Math.floor(Math.random() * 90); // % 기준 위치
+      const top = Math.floor(Math.random() * 50) + 30; // 초원 아래쪽에 위치
+
+      animal.style.left = `${left}%`;
+      animal.style.top = `${top}%`;
+
+      animal.appendChild(img);
+
+      // 공개 메시지일 때만 말풍선 붙이기
+      if (entry.message) {
+        const bubble = document.createElement("div");
+        bubble.className = "speech-bubble";
+        bubble.textContent = entry.message;
+        animal.appendChild(bubble);
+      }
+
+      meadow.appendChild(animal);
+    });
+  }
+</script>
+
 
 </body>
 </html>
