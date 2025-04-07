@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <title>Guestbook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    /* Navigation */
+    body {
+      background-color: #fffafc;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      padding: 20px;
+    }
+
     .navbar {
       background-color: #ffeef2;
       padding: 10px 20px;
@@ -31,7 +35,6 @@
       font-size: 18px;
     }
 
-    /* Guestbook Form */
     .guestbook-form {
       background-color: #fff0f5;
       padding: 20px;
@@ -39,7 +42,6 @@
       max-width: 500px;
       margin: 0 auto;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     .guestbook-form label {
@@ -87,7 +89,7 @@
   </nav>
 
   <!-- Guestbook Form -->
-  <form class="guestbook-form" method="POST">
+  <form class="guestbook-form">
     <label>🐣 Nickname:
       <input type="text" name="nickname" required>
     </label>
@@ -123,9 +125,9 @@
       e.preventDefault();
 
       const form = e.target;
-      const formData = new FormData(form); // FormData 사용
+      const formData = new FormData(form);
 
-      const webhookUrl = "https://script.google.com/macros/s/AKfycbyCki7gyjd4wXG23fEa74emRnNVcemZTdeWWHXze_b3PpG3XkbRPUkiFc090c3NUFg/exec"; // 너의 URL
+      const webhookUrl = "https://script.google.com/macros/s/AKfycbzrpf23pNtj-593C0RPUB7NAzKju8DOFkYAhMSaxSTE1dJZBetN_MGEDZQbM2or2ygz/exec";
 
       try {
         const res = await fetch(webhookUrl, {
@@ -133,12 +135,26 @@
           body: formData
         });
 
-        const text = await res.text();
-        console.log(text);
-        alert("Thank you! Your message has been saved 🐾");
-        form.reset();
+        const resultText = await res.text();
+        if (res.ok) {
+          document.body.innerHTML = `
+            <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
+              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+              <p>Thank you for signing the guestbook 🐾</p>
+              <a href="guestbook.html" style="display:inline-block;margin-top:20px;padding:10px 20px;background-color:#ffb6c1;color:white;border-radius:8px;text-decoration:none;">Back to Guestbook</a>
+            </div>
+          `;
+        } else {
+          throw new Error("Submission failed");
+        }
       } catch (err) {
-        alert("Oops! Something went wrong. Please try again.");
+        document.body.innerHTML = `
+          <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#ffe4e1;border-radius:20px;">
+            <h1 style="color:#ff6f91;">😢 Oops! Something went wrong...</h1>
+            <p>Please try again later!</p>
+            <a href="guestbook.html" style="display:inline-block;margin-top:20px;padding:10px 20px;background-color:#ffb6c1;color:white;border-radius:8px;text-decoration:none;">Back to Guestbook</a>
+          </div>
+        `;
       }
     });
   </script>
