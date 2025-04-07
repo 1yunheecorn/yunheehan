@@ -193,6 +193,49 @@
     });
   </script>
   <script>
+  // 캐릭터 이미지 경로 설정 함수
+  function getCharacterImage(character) {
+    return `images/${character}.png`; // 파일명은 bunny.png, bear.png 등
+  }
+
+  // 캐릭터 하나 생성하는 함수
+  function createAnimal(character, message, index) {
+    const container = document.querySelector(".meadow");
+
+    const animal = document.createElement("img");
+    animal.src = getCharacterImage(character);
+    animal.classList.add("animal");
+
+    // 캐릭터 위치 랜덤하게 배치
+    animal.style.left = `${Math.random() * 80}%`;
+    animal.style.bottom = `${Math.random() * 30 + 10}px`;
+
+    // 말풍선 (공개 메시지만)
+    if (message) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("speech-bubble");
+      bubble.innerText = message;
+      animal.appendChild(bubble);
+    }
+
+    container.appendChild(animal);
+  }
+
+  // 서버에서 데이터 받아와서 캐릭터 생성
+  async function loadCharacters() {
+    const response = await fetch("https://script.google.com/macros/s/AKfycby9G1Abc1nAeHKY5gcGpoQJtfUPlGkXVKI-woXE4YClWhx0u8dKBGO_kfLnXM4s4LKC/exec");
+    const data = await response.json();
+
+    data.forEach((entry, index) => {
+      createAnimal(entry.character, entry.message, index);
+    });
+  }
+
+  // 페이지 로드 시 실행
+  loadCharacters();
+</script>
+
+  <script>
   // Google Apps Script의 GET용 웹앱 URL
   const DATA_URL = "https://script.google.com/macros/s/AKfycby9G1Abc1nAeHKY5gcGpoQJtfUPlGkXVKI-woXE4YClWhx0u8dKBGO_kfLnXM4s4LKC/exec";
 
