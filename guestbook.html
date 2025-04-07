@@ -117,6 +117,38 @@
 
     <button type="submit">🌸 Submit to Guestbook</button>
   </form>
+<script>
+  document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      nickname: form.nickname.value,
+      email: form.email.value,
+      character: form.character.value,
+      message: form.message.value,
+      public: form.public.checked
+    };
+
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbzrpf23pNtj-593C0RPUB7NAzKju8DOFkYAhMSaxSTE1dJZBetN_MGEDZQbM2or2ygz/exec";
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      const result = await res.json();
+      if (result.result === 'success') {
+        alert("Thank you! Your message has been saved 🐾");
+        form.reset();
+      }
+    } catch (err) {
+      alert("Oops! Something went wrong. Please try again.");
+    }
+  });
+</script>
 
 </body>
 </html>
