@@ -53,12 +53,13 @@
     }
 
     .links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
       margin-top: 1.5rem;
     }
 
     .links a {
-      display: block;
-      margin: 0.5rem 0;
       padding: 0.6rem 1.2rem;
       text-decoration: none;
       color: #fff;
@@ -66,7 +67,7 @@
       border-radius: 20px;
       font-weight: 600;
       transition: all 0.3s ease;
-      width: fit-content;
+      text-align: center;
     }
 
     .links a:hover {
@@ -91,8 +92,8 @@
         width: 180px;
       }
 
-      .links a {
-        margin: 0.4rem auto;
+      .links {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -103,19 +104,16 @@
       <img src="yunhee.jpg" alt="Yunhee Han" class="profile" />
     </div>
     <div class="content">
-      <h1>Hello🪽🐰 I’m Yunhee Han</h1>
-      <p>
-        I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.<br/>
-        I’m into Management Science and HR (but honestly, I think every part of business is kinda fun ♥️).<br/>
-        Maybe I’ll stay in academia—or maybe I’ll explore a startup path in HR! Still figuring it out with an open heart 💫<br/>
-        Outside of business, I also love things like neuroscience🧠, psychology, algorithms, and AI.
-      </p>
-      <p>
-        I’ve worked on multiple startup projects, some even reaching prototype or actual release. <br/>
-        I read a lot—books 📚 or research on topics I love. I enjoy classical music, going to concerts, and taking flute lessons. 🎶<br/>
-        Also into tennis 🎾, cute cafés with friends, and… just appreciating all the little joys 💖
-      </p>
-
+       <h1>Hello 🪽 🐰 I’m Yunhee Han🦢</h1>
+      <p>I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.</p>
+      <p>I’m into Management Science and HR. </p>
+      <p>(But honestly, I think every part of business is kinda fun ❤️).</p>
+      <p>I'm thinking about staying in the research field in the future, but nothing is set in stone yet. 🍥Still figuring out with an open heart.☁️</p>
+      <p>Outside of business, I also love things like 
+neuroscience🧠, psychology, algorithms, and AI.</p>
+      <p>I’ve worked on multiple startup projects, some even reaching prototype or actual release.</p>
+      <p>When I'm not working, I read books 📚 or research on topics I love. </p>
+       <p>I enjoy classical music, going to concerts, and taking flute lessons too. 🎶</p>
       <div class="links">
         <a href="https://m.blog.naver.com/tokilanders" target="_blank">🫧 My Daily Life (Naver Blog)</a>
         <a href="https://www.linkedin.com/in/yunhee-han-katherine/" target="_blank">🦄 My Resume (LinkedIn)</a>
@@ -130,4 +128,3 @@
   </div>
 </body>
 </html>
-
