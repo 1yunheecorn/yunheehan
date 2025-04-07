@@ -96,6 +96,17 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .mobile-break {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-break {
+    display: inline;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -104,8 +115,8 @@
       <img src="yunhee.jpg" alt="Yunhee Han" class="profile" />
     </div>
     <div class="content">
-       <h1>Hello🪽🐰 I’m Yunhee Han🦢</h1>
-      <p>I’m studying Business Administration at 🌸Ewha Womans University🌸 in Seoul.<br/>
+       <h1>Hello🪽🐰 <br class="mobile-break"/>I’m Yunhee Han🦢</h1>
+      <p>I’m studying Business Administration at <br class="mobile-break"/>🌸Ewha Womans University🌸 in Seoul.<br/>
       I’m into Management Science and HR. <br/>
       (But honestly, I think every part of business is kinda fun ❤️).<br/>
       I'm thinking about staying in the research field in the future, but nothing is set in stone yet. 🍥Still figuring out with an open heart.☁️<br/>
