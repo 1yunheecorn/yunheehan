@@ -154,45 +154,41 @@
   <!-- 여기 나중에 JS로 캐릭터들을 추가할 거야 -->
 </div>
 
-  <script>
-    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
+ <script>
+  document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const form = e.target;
-      const formData = new FormData(form);
+    const form = e.target;
+    const formData = new FormData(form);
 
-      const webhookUrl = "https://script.google.com/macros/s/AKfycbzL-xo_QQWfsjUEguGNw7wMY8njmvfCX4rR3Q_FZpmuEzCD81iVtmKwEnXgWazGNtqg/exec";
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbzL-xo_QQWfsjUEguGNw7wMY8njmvfCX4rR3Q_FZpmuEzCD81iVtmKwEnXgWazGNtqg/exec";
 
-      try {
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          body: formData
-        });
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        body: formData
+      });
 
-        const resultText = await res.text();
-        if (res.ok) {
-          document.body.innerHTML = `
-            <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
-              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-              <p>Thank you for signing the guestbook 🐾</p>
-              <a href="guestbook.html" style="display:inline-block;margin-top:20px;padding:10px 20px;background-color:#ffb6c1;color:white;border-radius:8px;text-decoration:none;">Back to Guestbook</a>
-            </div>
-          `;
-        } else {
-          throw new Error("Submission failed");
-        }
-      } catch (err) {
+      const resultText = await res.text();
+      if (res.ok) {
         document.body.innerHTML = `
-          <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#ffe4e1;border-radius:20px;">
-            <h1 style="color:#ff6f91;">😢 Oops! Something went wrong...</h1>
-            <p>Please try again later!</p>
-            <a href="guestbook.html" style="display:inline-block;margin-top:20px;padding:10px 20px;background-color:#ffb6c1;color:white;border-radius:8px;text-decoration:none;">Back to Guestbook</a>
+          <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
+            <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+            <p>Thank you for signing the guestbook 🐾</p>
+            <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
           </div>
         `;
+      } else {
+        alert("Oops! Something went wrong. Please try again later.");
+        console.error(resultText);
       }
-    });
-  </script>
-  <script>
+    } catch (error) {
+      alert("Error submitting the form.");
+      console.error(error);
+    }
+  });
+</script>
+
   // 캐릭터 이미지 경로 설정 함수
   function getCharacterImage(character) {
     return `images/${character}.png`; // 파일명은 bunny.png, bear.png 등
