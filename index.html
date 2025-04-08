@@ -127,7 +127,21 @@
       margin-top: 50px;
     }
     .animal-container { position: absolute; cursor: pointer; }
-    .animal { width: 80px; display: block; }
+    @keyframes wiggle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animal {
+  width: 80px;
+  display: block;
+  animation: wiggle 2s ease-in-out infinite;
+}
+
     .speech-bubble {
       position: absolute;
       background: #fff;
