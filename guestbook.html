@@ -81,6 +81,7 @@
       position: absolute;
       width: 80px;
       transition: transform 1s ease;
+      cursor: pointer;
     }
     .speech-bubble {
       position: absolute;
@@ -95,6 +96,7 @@
       left: 50%;
       transform: translateX(-50%);
       max-width: 150px;
+      display: none; /* 기본 숨김 */
     }
   </style>
 </head>
@@ -136,60 +138,65 @@
   </form>
   <!-- 캐릭터들이 돌아다니는 초원 -->
   <div class="meadow">
-    <!-- 캐릭터 이미지들이 JS로 추가됩니다 -->
+    <!-- 캐릭터 이미지들은 JS로 추가됩니다 -->
   </div>
 
   <!-- 스크립트 코드 시작 -->
   <script>
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbwKQxz4XRSsRZv6fuFA4kQMumdiGiUavKMXWQDqNB-5zh1gllDZJsnnvtn7cOukqGcU/exec";
-
-    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      try {
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          body: formData
-        });
-
-        const resultText = await res.text();
-        if (res.ok) {
-          document.body.innerHTML = `
-            <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
-              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-              <p>Thank you for signing the guestbook 🐾</p>
-              <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
-            </div>
-          `;
-        } else {
-          console.error(resultText);
-          alert("Oops! Something went wrong. Please try again later.");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Error submitting the form.");
-      }
-    });
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+    
+    // 이미 배치된 동물 위치를 기록 (실제 좌표 단위: 픽셀)
+    let placedPositions = [];
 
     // GET 요청을 통해 초원에 동물 캐릭터 로드
     async function loadCharacters() {
-  try {
-    const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
-    const data = await response.json();
-    console.log("불러온 데이터:", data);  // 데이터 확인용 로그 추가
-    if (!data || data.length === 0) {
-      console.warn("불러온 데이터가 없어요. 스프레드시트 데이터를 확인해보세요!");
+      try {
+        const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+        const data = await response.json();
+        console.log("불러온 데이터:", data);  // 데이터 확인
+        data.forEach((entry, index) => {
+          createAnimal(entry.character, entry.message, index);
+        });
+      } catch (error) {
+        console.error("데이터 불러오기 오류:", error);
+      }
     }
-    data.forEach((entry, index) => {
-      createAnimal(entry.character, entry.message, index);
-    });
-  } catch (error) {
-    console.error("데이터 불러오기 오류:", error);
-  }
-}
+
+    // 캐릭터 이미지 경로 반환 함수
+    function getCharacterImage(character) {
+      return `./images/${character}.png`;
+    }
+
+    // 동물이 겹치지 않도록 좌표를 생성하는 함수
+    function getNonOverlappingPosition(container, animalWidth, animalHeight) {
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      let attempt = 0;
+      const maxAttempts = 20;
+      while (attempt < maxAttempts) {
+        // left를 퍼센트로, bottom은 픽셀로 계산 (기존 코드와 유사)
+        let leftPercent = Math.random() * 80; // 0% ~ 80%
+        let leftPx = containerWidth * (leftPercent / 100);
+        let bottomPx = Math.random() * 30 + 10; // 픽셀 단위
+
+        // 이미 배치된 동물들과 비교: 간단한 충돌 검사 (가로 세로 80px 범위 이내면 겹친 것으로 판단)
+        let overlapping = placedPositions.some(pos => {
+          let dx = Math.abs(pos.left - leftPx);
+          let dy = Math.abs(pos.bottom - bottomPx);
+          return dx < animalWidth && dy < animalHeight;
+        });
+
+        if (!overlapping) {
+          placedPositions.push({ left: leftPx, bottom: bottomPx });
+          return { leftPercent, bottomPx };
+        }
+        attempt++;
+      }
+      // maxAttempts 이후엔 어쩔 수 없이 랜덤 좌표 반환
+      let leftPercent = Math.random() * 80;
+      let bottomPx = Math.random() * 30 + 10;
+      return { leftPercent, bottomPx };
+    }
 
     // 캐릭터 생성 함수
     function createAnimal(character, message, index) {
@@ -197,14 +204,31 @@
       const animal = document.createElement("img");
       animal.src = getCharacterImage(character);
       animal.classList.add("animal");
-      animal.style.left = `${Math.random() * 80}%`;
-      animal.style.bottom = `${Math.random() * 30 + 10}px`;
       
+      // 동물의 크기(가로/세로 80px 가정)를 고려하여 겹치지 않는 위치 얻기
+      const pos = getNonOverlappingPosition(container, 80, 80);
+      animal.style.left = `${pos.leftPercent}%`;
+      animal.style.bottom = `${pos.bottomPx}px`;
+      
+      // 메시지가 있으면 말풍선을 생성하고 기본 숨김 처리
       if (message) {
         const bubble = document.createElement("div");
         bubble.classList.add("speech-bubble");
         bubble.innerText = message;
+        // 기본적으로 숨겨진 상태 (CSS에도 display:none 되어 있음)
+        bubble.style.display = "none";
         animal.appendChild(bubble);
+        
+        // 동물을 클릭하면 말풍선 토글 (보였다 안 보였다)
+        animal.addEventListener("click", function(e) {
+          if (bubble.style.display === "none") {
+            bubble.style.display = "block";
+          } else {
+            bubble.style.display = "none";
+          }
+          // 클릭 이벤트가 다른 요소로 전파되지 않도록 함
+          e.stopPropagation();
+        });
       }
   
       container.appendChild(animal);
@@ -216,3 +240,4 @@
   <!-- 스크립트 코드 끝 -->
 </body>
 </html>
+
