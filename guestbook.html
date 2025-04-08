@@ -140,11 +140,12 @@
   </div>
 <script>
   // 폼 제출 이벤트 (POST 요청)
+  const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
   document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    // 여기의 URL을 반드시 새 배포된 웹앱 URL과 일치시켜주세요!    const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+  
     try {
       const res = await fetch(webhookUrl, {
         method: "POST",
