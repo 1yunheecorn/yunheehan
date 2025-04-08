@@ -158,13 +158,13 @@ document.querySelector('.guestbook-form').addEventListener('submit', async funct
 
     const resultText = await res.text();
     if (res.ok) {
-      document.body.innerHTML = 
-        <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
-          <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-          <p>Thank you for signing the guestbook 🐾</p>
-          <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
-        </div>
-      ;
+    document.body.innerHTML = `
+  <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
+    <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+    <p>Thank you for signing the guestbook 🐾</p>
+    <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
+  </div>
+`;
     } else {
       console.error(resultText);
       alert("Oops! Something went wrong. Please try again later.");
@@ -190,9 +190,8 @@ async function loadCharacters() {
   }
 }
 
-// 캐릭터 이미지 경로 반환 함수
 function getCharacterImage(character) {
-  return ./images/${character}.png;  // 또는 "/images/..."
+  return `./images/${character}.png`;
 }
 
 // 캐릭터 생성 함수
@@ -201,9 +200,8 @@ function createAnimal(character, message, index) {
   const animal = document.createElement("img");
   animal.src = getCharacterImage(character);
   animal.classList.add("animal");
-  animal.style.left = ${Math.random() * 80}%;
-  animal.style.bottom = ${Math.random() * 30 + 10}px;
-
+animal.style.left = ${Math.random() * 80}%;
+animal.style.bottom = ${Math.random() * 30 + 10}px;
   if (message) {
     const bubble = document.createElement("div");
     bubble.classList.add("speech-bubble");
