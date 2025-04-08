@@ -81,6 +81,7 @@
       position: absolute;
       width: 80px;
       transition: transform 1s ease;
+      cursor: pointer;
     }
     .speech-bubble {
       position: absolute;
@@ -95,6 +96,7 @@
       left: 50%;
       transform: translateX(-50%);
       max-width: 150px;
+      display: none;
     }
   </style>
 </head>
@@ -135,99 +137,98 @@
     <button type="submit">🌸 Submit to Guestbook</button>
   </form>
   <!-- 캐릭터들이 돌아다니는 초원 -->
-  <div class="meadow">
-    <!-- 캐릭터 이미지들이 JS로 추가됩니다 -->
-  </div>
+  <div class="meadow"></div>
 
   <!-- 스크립트 코드 시작 -->
-  <!-- 스크립트 코드 시작 -->
-<script>
-  const webhookUrl = "https://script.google.com/macros/s/AKfycbwKQxz4XRSsRZv6fuFA4kQMumdiGiUavKMXWQDqNB-5zh1gllDZJsnnvtn7cOukqGcU/exec";
+  <script>
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbwKQxz4XRSsRZv6fuFA4kQMumdiGiUavKMXWQDqNB-5zh1gllDZJsnnvtn7cOukqGcU/exec";
 
-  // 폼 제출 이벤트 (POST)
-  document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    try {
-      const res = await fetch(webhookUrl, {
-        method: "POST",
-        body: formData
-      });
-      const resultText = await res.text();
-      if (res.ok) {
-        document.body.innerHTML = `
-          <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
-            <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-            <p>Thank you for signing the guestbook 🐾</p>
-            <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
-          </div>
-        `;
-      } else {
-        console.error(resultText);
-        alert("Oops! Something went wrong. Please try again later.");
+    // 폼 제출 이벤트 (POST)
+    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          body: formData
+        });
+        const resultText = await res.text();
+        if (res.ok) {
+          document.body.innerHTML = `
+            <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
+              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+              <p>Thank you for signing the guestbook 🐾</p>
+              <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
+            </div>
+          `;
+        } else {
+          console.error(resultText);
+          alert("Oops! Something went wrong. Please try again later.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error submitting the form.");
       }
-    } catch (error) {
-      console.error(error);
-      alert("Error submitting the form.");
-    }
-  });
-
-  // GET 요청을 통해 초원에 동물 캐릭터 로드
-  async function loadCharacters() {
-    try {
-      const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
-      const data = await response.json();
-      console.log("불러온 데이터:", data);
-      if (!data || data.length === 0) {
-        console.warn("불러온 데이터가 없어요. 스프레드시트 데이터를 확인해보세요!");
-      }
-      data.forEach((entry, index) => {
-        createAnimal(entry.character, entry.message, index);
-      });
-    } catch (error) {
-      console.error("데이터 불러오기 오류:", error);
-    }
-  }
-
-  // 캐릭터 이미지 경로 반환 함수
-  function getCharacterImage(character) {
-    return `./images/${character}.png`;
-  }
-
-  // 캐릭터 생성 함수
-  function createAnimal(character, message, index) {
-    const container = document.querySelector(".meadow");
-    const animal = document.createElement("img");
-    animal.src = getCharacterImage(character);
-    animal.classList.add("animal");
-    animal.style.left = `${Math.random() * 80}%`;
-    animal.style.bottom = `${Math.random() * 30 + 10}px`;
-
-    // 이미지 로드 실패시 에러 로그 출력 (디버깅용)
-    animal.addEventListener("error", function() {
-      console.error("이미지 로드 실패: " + animal.src);
     });
 
-    if (message) {
-      const bubble = document.createElement("div");
-      bubble.classList.add("speech-bubble");
-      bubble.innerText = message;
-      bubble.style.display = "none"; // 말풍선은 기본적으로 숨김 처리
-      animal.appendChild(bubble);
-      // 동물 클릭 시 말풍선 토글
-      animal.addEventListener("click", function(e) {
-        bubble.style.display = (bubble.style.display === "none") ? "block" : "none";
-        e.stopPropagation();
-      });
+    // GET 요청을 통해 초원에 동물 캐릭터 로드
+    async function loadCharacters() {
+      try {
+        const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+        const data = await response.json();
+        console.log("불러온 데이터:", data);
+        if (!data || data.length === 0) {
+          console.warn("불러온 데이터가 없어요. 스프레드시트 데이터를 확인해보세요!");
+        }
+        data.forEach((entry, index) => {
+          createAnimal(entry.character, entry.message, index);
+        });
+      } catch (error) {
+        console.error("데이터 불러오기 오류:", error);
+      }
     }
-    container.appendChild(animal);
-  }
 
-  // 페이지 로드 시 캐릭터 로드
-  window.addEventListener("DOMContentLoaded", loadCharacters);
-</script>
-<!-- 스크립트 코드 끝 -->
+    // 캐릭터 이미지 경로 반환 함수 (정의됨)
+    function getCharacterImage(character) {
+      return `./images/${character}.png`;
+    }
 
+    // 캐릭터 생성 함수
+    function createAnimal(character, message, index) {
+      const container = document.querySelector(".meadow");
+      const animal = document.createElement("img");
+      // getCharacterImage 함수 사용
+      animal.src = getCharacterImage(character);
+      animal.classList.add("animal");
+      animal.style.left = `${Math.random() * 80}%`;
+      animal.style.bottom = `${Math.random() * 30 + 10}px`;
+
+      // 이미지 로드 실패시 에러 로그 출력 (디버깅용)
+      animal.addEventListener("error", function() {
+        console.error("이미지 로드 실패: " + animal.src);
+      });
+
+      if (message) {
+        const bubble = document.createElement("div");
+        bubble.classList.add("speech-bubble");
+        bubble.innerText = message;
+        bubble.style.display = "none"; // 말풍선 기본 숨김
+        // 수정: "풍선껌" → bubble
+        animal.appendChild(bubble);
+
+        // 동물 클릭 시 말풍선 토글
+        animal.addEventListener("click", function(e) {
+          bubble.style.display = (bubble.style.display === "none") ? "block" : "none";
+          e.stopPropagation();
+        });
+      }
+      container.appendChild(animal);
+    }
+
+    // 페이지 로드 시 캐릭터 로드
+    window.addEventListener("DOMContentLoaded", loadCharacters);
+  </script>
+  <!-- 스크립트 코드 끝 -->
 </body>
 </html>
