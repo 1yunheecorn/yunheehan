@@ -140,36 +140,42 @@
   </div>
 <script>
   // 폼 제출 이벤트 (POST 요청)
-  const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
-  document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-  
-    try {
-      const res = await fetch(webhookUrl, {
-        method: "POST",
-        mode: "cors",
-        body: formData
-      });
-      const resultText = await res.text();
-      if (res.ok) {
-        document.body.innerHTML = `
-          <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
-            <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-            <p>Thank you for signing the guestbook 🐾</p>
-            <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
-          </div>
-        `;
-      } else {
-        alert("Oops! Something went wrong. Please try again later.");
-        console.error(resultText);
-      }
-    } catch (error) {
-      alert("Error submitting the form.");
-      console.error(error);
+ <script>
+
+const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+
+document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      body: formData
+    });
+
+    const resultText = await res.text();
+    if (res.ok) {
+      document.body.innerHTML = `
+        <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
+          <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+          <p>Thank you for signing the guestbook 🐾</p>
+          <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
+        </div>
+      `;
+    } else {
+      console.error(resultText);
+      alert("Oops! Something went wrong. Please try again later.");
     }
-  });
+  } catch (error) {
+    console.error(error);
+    alert("Error submitting the form.");
+  }
+});
+</script>
+
   
 async function loadCharacters() {
   const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
