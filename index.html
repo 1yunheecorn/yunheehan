@@ -1,19 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z52VWGG08C"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Z52VWGG08C');
-</script>
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z52VWGG08C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z52VWGG08C');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yunhee Han</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hi+Melody&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Gowun Dodum', sans-serif;
@@ -22,7 +22,6 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       display: flex;
       flex-direction: row;
@@ -33,41 +32,30 @@
       padding: 2rem;
       gap: 2rem;
     }
-
-    .profile-pic {
-      flex-shrink: 0;
-    }
-
+    .profile-pic { flex-shrink: 0; }
     img.profile {
       width: 220px;
       height: auto;
       border-radius: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-
-    .content {
-      max-width: 600px;
-    }
-
+    .content { max-width: 600px; }
     h1 {
       font-size: 2rem;
       color: #d07fa5;
       margin-top: 0.5rem;
     }
-
     p {
       font-size: 1.05rem;
       line-height: 1.7;
       margin: 1rem 0;
     }
-
     .links {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
       margin-top: 1.5rem;
     }
-
     .links a {
       padding: 0.6rem 1.2rem;
       text-decoration: none;
@@ -78,71 +66,214 @@
       transition: all 0.3s ease;
       text-align: center;
     }
-
-    .links a:hover {
-      background-color: #e69aaa;
-    }
-
+    .links a:hover { background-color: #e69aaa; }
     .footer {
       margin-top: 3rem;
       font-size: 0.9rem;
       color: #aaa;
       text-align: center;
     }
-
+    .mobile-break { display: none; }
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 1.5rem;
-        text-align: center;
-      }
-
-      img.profile {
-        width: 180px;
-      }
-
-      .links {
-        grid-template-columns: 1fr;
-      }
+      .container { flex-direction: column; padding: 1.5rem; text-align: center; }
+      img.profile { width: 180px; }
+      .links { grid-template-columns: 1fr; }
+      .mobile-break { display: inline; }
     }
 
-    .mobile-break {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .mobile-break {
-    display: inline;
-  }
-}
-
+    /* Guestbook Styles */
+    .guestbook-form {
+      background-color: #fff0f5;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: 50px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .guestbook-form label {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #444;
+    }
+    .guestbook-form input,
+    .guestbook-form textarea,
+    .guestbook-form select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ffb6c1;
+      border-radius: 8px;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    .guestbook-form button {
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .guestbook-form button:hover { background-color: #ff85a2; }
+    .meadow {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(to top, #c6f5c6 50%, #fff0f5 50%);
+      border: 3px dashed #a0d6a0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 50px;
+    }
+    .animal-container { position: absolute; cursor: pointer; }
+    .animal { width: 80px; display: block; }
+    .speech-bubble {
+      position: absolute;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      font-family: 'Hi Melody', sans-serif;
+      font-size: 14px;
+      color: #333;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 600px;
+      text-align: left;
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- 소개 영역 -->
   <div class="container">
     <div class="profile-pic">
       <img src="yunhee.jpg" alt="Yunhee Han" class="profile" />
     </div>
     <div class="content">
-       <h1>Hello🪽🐰 <br class="mobile-break"/>I’m Yunhee Han🦢</h1>
+      <h1>Hello🪽🐰 <br class="mobile-break"/>I’m Yunhee Han🦢</h1>
       <p>I’m studying Business Administration at <br class="mobile-break"/>🌸Ewha Womans University🌸 in Seoul.<br/>
       I’m into Management Science and HR. <br/>
-      (But honestly, I think every part of business is kinda fun ❤️).<br/>
-      I'm thinking about staying in the research field in the future, but nothing is set in stone yet. <br class="mobile-break"/>🍥Still figuring out with an open heart.☁️<br/>
-      Outside of business, I also love things like 
-neuroscience🧠, psychology, algorithms, and AI. </p>
-      <p>I’ve worked on multiple startup projects, some even reaching prototype or actual release.<br/>
-      When I'm not working, I read books 📚 or research on topics I love.<br/>
-       I enjoy classical music, going to concerts, and taking flute lessons too. 🎶<br/>
-        Please feel free to contact me🩷🐰</p> 
+      I think every part of business is kinda fun ❤️.<br/>
+      I’m exploring research life with an open heart ☁️<br/>
+      I also love neuroscience🧠, psychology, algorithms, and AI. </p>
+      <p>I’ve worked on multiple startup projects.<br/>
+      When not working, I read, take flute lessons🎶, or go to concerts.<br/>
+      Feel free to contact me🩷🐰</p>
       <div class="links">
-        <a href="https://m.blog.naver.com/tokilanders" target="_blank">🫧 My Daily Life (Naver Blog)</a>
-        <a href="https://www.linkedin.com/in/yunhee-han-katherine/" target="_blank">🦄 My Resume (LinkedIn)</a>
-        <a href="https://vsco.co/yunheeverse" target="_blank">🩷 My Photo Diary (VSCO)</a>
-        <a href="mailto:katherinehan@ewhain.net">💌 Email Me!</a>
+        <a href="https://m.blog.naver.com/tokilanders" target="_blank">🫧 Daily Life</a>
+        <a href="https://www.linkedin.com/in/yunhee-han-katherine/" target="_blank">🦄 Resume</a>
+        <a href="https://vsco.co/yunheeverse" target="_blank">📸 VSCO</a>
+        <a href="mailto:katherinehan@ewhain.net">💌 Email Me</a>
       </div>
     </div>
   </div>
+
+  <!-- 🐾 방명록 입력 폼 -->
+  <form class="guestbook-form">
+    <label>🐣 Nickname:
+      <input type="text" name="nickname" required>
+    </label>
+    <label>📧 Email:
+      <input type="email" name="email" required>
+    </label>
+    <label>🐾 Choose your animal character:
+      <select name="character" required>
+        <option value="bunny">🐰 Bunny</option>
+        <option value="cat">🐱 Cat</option>
+        <option value="dog">🐶 Dog</option>
+        <option value="bear">🐻 Bear</option>
+        <option value="fox">🦊 Fox</option>
+        <option value="duck">🦆 Duck</option>
+      </select>
+    </label>
+    <label>💌 Message:
+      <textarea name="message" rows="4" required></textarea>
+    </label>
+    <label>👀 Public:
+      <input type="checkbox" name="public" checked> Make message public
+    </label>
+    <button type="submit">🌸 Submit to Guestbook</button>
+  </form>
+
+  <!-- 🐰 캐릭터들이 뛰노는 초원 -->
+  <div class="meadow"></div>
+
+  <!-- 스크립트 -->
+  <script>
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbwKQxz4XRSsRZv6fuFA4kQMumdiGiUavKMXWQDqNB-5zh1gllDZJsnnvtn7cOukqGcU/exec";
+
+    // POST
+    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          body: formData
+        });
+        const resultText = await res.text();
+        if (res.ok) {
+          alert("🌸 Your message was submitted!");
+          window.location.reload();
+        } else {
+          console.error(resultText);
+          alert("Oops! Something went wrong.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error submitting the form.");
+      }
+    });
+
+    // GET
+    async function loadCharacters() {
+      try {
+        const res = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+        const data = await res.json();
+        data.forEach((entry, index) => {
+          createAnimal(entry.character, entry.message, index);
+        });
+      } catch (error) {
+        console.error("불러오기 오류:", error);
+      }
+    }
+
+    function getCharacterImage(character) {
+      return `./images/${character}.png`;
+    }
+
+    function createAnimal(character, message, index) {
+      const container = document.querySelector(".meadow");
+      const wrapper = document.createElement("div");
+      wrapper.className = "animal-container";
+      wrapper.style.left = `${Math.random() * 80}%`;
+      wrapper.style.bottom = `${Math.random() * 30 + 10}px`;
+
+      const img = document.createElement("img");
+      img.src = getCharacterImage(character);
+      img.className = "animal";
+
+      const bubble = document.createElement("div");
+      bubble.className = "speech-bubble";
+      bubble.textContent = message;
+
+      wrapper.appendChild(img);
+      if (message) wrapper.appendChild(bubble);
+
+      wrapper.addEventListener("click", () => {
+        bubble.style.display = bubble.style.display === "none" ? "block" : "none";
+      });
+
+      container.appendChild(wrapper);
+    }
+
+    window.addEventListener("DOMContentLoaded", loadCharacters);
+  </script>
 
   <div class="footer">
     Made with 💗 by Yunhee
