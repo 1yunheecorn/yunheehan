@@ -264,31 +264,56 @@
       return `./images/${character}.png`;
     }
 
-    function createAnimal(character, message, index) {
-      const container = document.querySelector(".meadow");
-      const wrapper = document.createElement("div");
-      wrapper.className = "animal-container";
-      wrapper.style.left = `${Math.random() * 80}%`;
-      wrapper.style.bottom = `${Math.random() * 30 + 10}px`;
+    function createAnimal(character, nickname, message, index) {
+    const container = document.querySelector(".meadow");
 
-      const img = document.createElement("img");
-      img.src = getCharacterImage(character);
-      img.className = "animal";
+    const wrapper = document.createElement("div");
+    wrapper.className = "animal-container";
 
-      const bubble = document.createElement("div");
-      bubble.className = "speech-bubble";
-      bubble.textContent = message;
+    const img = document.createElement("img");
+    img.src = getCharacterImage(character);
+    img.className = "animal";
 
-      wrapper.appendChild(img);
-      if (message) wrapper.appendChild(bubble);
+    const bubble = document.createElement("div");
+    bubble.className = "speech-bubble";
+    bubble.textContent = `${nickname}: ${message}`;
 
-      wrapper.addEventListener("click", () => {
-        bubble.style.display = bubble.style.display === "none" ? "block" : "none";
-      });
+    wrapper.appendChild(img);
+    if (message) wrapper.appendChild(bubble);
 
-      container.appendChild(wrapper);
-    }
+    wrapper.addEventListener("click", () => {
+      bubble.style.display = bubble.style.display === "none" ? "block" : "none";
+    });
 
+    // ⭐ 겹치지 않는 위치 찾기
+    let tries = 0;
+    const maxTries = 50;
+    let left, bottom;
+    let overlap;
+
+    do {
+      overlap = false;
+      left = Math.random() * 80;
+      bottom = Math.random() * 30 + 10;
+
+      const existingAnimals = document.querySelectorAll(".animal-container");
+      for (const animal of existingAnimals) {
+        const aLeft = parseFloat(animal.style.left);
+        const aBottom = parseFloat(animal.style.bottom);
+        const distance = Math.sqrt(Math.pow(left - aLeft, 2) + Math.pow(bottom - aBottom, 2));
+        if (distance < 10) { // 최소 거리 (단위: %)
+          overlap = true;
+          break;
+        }
+      }
+      tries++;
+    } while (overlap && tries < maxTries);
+
+    wrapper.style.left = `${left}%`;
+    wrapper.style.bottom = `${bottom}%`;
+
+    container.appendChild(wrapper);
+  }
     window.addEventListener("DOMContentLoaded", loadCharacters);
   </script>
 
