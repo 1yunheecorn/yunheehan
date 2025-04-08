@@ -253,8 +253,11 @@
       try {
         const res = await fetch(webhookUrl, { method: "GET", mode: "cors" });
         const data = await res.json();
-        data.forEach((entry, index) => {
-          createAnimal(entry.character, entry.message, index);
+        
+data.forEach((entry, index) => {
+  createAnimal(entry.character, entry.nickname, entry.message, index);
+});
+
         });
       } catch (error) {
         console.error("불러오기 오류:", error);
