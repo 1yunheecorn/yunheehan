@@ -144,7 +144,7 @@
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    // 여기의 URL을 반드시 새 배포된 웹앱 URL과 일치시켜주세요!    const webhookUrl = "https://script.google.com/macros/s/AKfycbw-T7xVvHNXDQ1BZ1sj4_5LugSyifWHoQGkmxdYhwHzCAaqUqhJjbSNWPbQ9QsPsFRH/exec";
+    // 여기의 URL을 반드시 새 배포된 웹앱 URL과 일치시켜주세요!    const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
     try {
       const res = await fetch(webhookUrl, {
         method: "POST",
@@ -171,7 +171,7 @@
   });
   
 async function loadCharacters() {
-  const webhookUrl = "https://script.google.com/macros/s/AKfycbw-T7xVvHNXDQ1BZ1sj4_5LugSyifWHoQGkmxdYhwHzCAaqUqhJjbSNWPbQ9QsPsFRH/exec";
+  const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
   try {
     const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
     const data = await response.json();
