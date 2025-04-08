@@ -145,7 +145,7 @@
     const form = e.target;
     const formData = new FormData(form);
     // 여기의 URL을 반드시 새 배포된 웹앱 URL과 일치시켜주세요!
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbxC-bzcJz8pUr8UUhhJoMddZ1s82Fl5IA_fwHm8WWaMkFzsGM08S4HuOfhKAHYPUrso/exec";
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbyxcNyo5iFrFsVICEV2YOfEim1XFsTqLtEQIyIj71bALtlA3sf61eW3czeHirhhIZLY/exec";
     try {
       const res = await fetch(webhookUrl, {
         method: "POST",
@@ -173,7 +173,7 @@
   
   // GET 요청으로 캐릭터 데이터를 받아오기
   async function loadCharacters() {
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbxC-bzcJz8pUr8UUhhJoMddZ1s82Fl5IA_fwHm8WWaMkFzsGM08S4HuOfhKAHYPUrso/exec";
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbyxcNyo5iFrFsVICEV2YOfEim1XFsTqLtEQIyIj71bALtlA3sf61eW3czeHirhhIZLY/exec";
     try {
       const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
       const data = await response.json();
