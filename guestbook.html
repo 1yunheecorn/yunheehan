@@ -99,7 +99,7 @@
   </style>
 </head>
 <body>
-<div id="guestbook-entries"></div>
+  <div id="guestbook-entries"></div>
   <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
@@ -139,84 +139,83 @@
     <!-- 캐릭터 이미지들이 JS로 추가됩니다 -->
   </div>
 
-  // 폼 제출 이벤트 (POST 요청)
- <script>
+  <!-- 스크립트 코드 시작 -->
+  <script>
+    // 폼 제출 이벤트 (POST 요청)
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
 
-const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
 
-  const form = e.target;
-  const formData = new FormData(form);
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          body: formData
+        });
 
-  try {
-    const res = await fetch(webhookUrl, {
-      method: "POST",
-      body: formData
+        const resultText = await res.text();
+        if (res.ok) {
+          document.body.innerHTML = `
+            <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
+              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+              <p>Thank you for signing the guestbook 🐾</p>
+              <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
+            </div>
+          `;
+        } else {
+          console.error(resultText);
+          alert("Oops! Something went wrong. Please try again later.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error submitting the form.");
+      }
     });
 
-    const resultText = await res.text();
-    if (res.ok) {
-  document.body.innerHTML = `
-  <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
-    <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-    <p>Thank you for signing the guestbook 🐾</p>
-    <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
-  </div>
-`;
-
-
-    } else {
-      console.error(resultText);
-      alert("Oops! Something went wrong. Please try again later.");
+    // GET 요청을 통해 초원에 동물 캐릭터 로드
+    async function loadCharacters() {
+      try {
+        const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+        const data = await response.json();
+        data.forEach((entry, index) => {
+          createAnimal(entry.character, entry.message, index);
+        });
+      } catch (error) {
+        console.error("데이터 불러오기 오류:", error);
+      }
     }
-  } catch (error) {
-    console.error(error);
-    alert("Error submitting the form.");
-  }
-});
-</script>
 
+    // 캐릭터 이미지 경로 반환 함수
+    function getCharacterImage(character) {
+      return `./images/${character}.png`;
+    }
+
+    // 캐릭터 생성 함수
+    function createAnimal(character, message, index) {
+      const container = document.querySelector(".meadow");
+      const animal = document.createElement("img");
+      animal.src = getCharacterImage(character);
+      animal.classList.add("animal");
+      animal.style.left = `${Math.random() * 80}%`;
+      animal.style.bottom = `${Math.random() * 30 + 10}px`;
+      
+      if (message) {
+        const bubble = document.createElement("div");
+        bubble.classList.add("speech-bubble");
+        bubble.innerText = message;
+        animal.appendChild(bubble);
+      }
   
-async function loadCharacters() {
-  const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
-  try {
-    const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
-    const data = await response.json();
-    data.forEach((entry, index) => {
-      createAnimal(entry.character, entry.message, index);
-    });
-  } catch (error) {
-    console.error("데이터 불러오기 오류:", error);
-  }
-}
+      container.appendChild(animal);
+    }
 
-function getCharacterImage(character) {
-  return `./images/${character}.png`;
-}
-
-// 캐릭터 생성 함수
-function createAnimal(character, message, index) {
-  const container = document.querySelector(".meadow");
-  const animal = document.createElement("img");
-  animal.src = getCharacterImage(character);
-  animal.classList.add("animal");
-animal.style.left = ${Math.random() * 80}%;
-animal.style.bottom = ${Math.random() * 30 + 10}px;
-  if (message) {
-    const bubble = document.createElement("div");
-    bubble.classList.add("speech-bubble");
-    bubble.innerText = message;
-    animal.appendChild(bubble);
-  }
-
-  container.appendChild(animal);
-}
-
-// 페이지 로드 시 실행
-window.addEventListener("DOMContentLoaded", loadCharacters);
-
-</script>
+    // 페이지 로드 시 캐릭터 로드
+    window.addEventListener("DOMContentLoaded", loadCharacters);
+  </script>
+  <!-- 스크립트 코드 끝 -->
 </body>
 </html>
+
