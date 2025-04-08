@@ -5,7 +5,6 @@
   <title>Guestbook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* 기본 스타일 */
     body {
       background-color: #fffafc;
       font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -68,7 +67,6 @@
     .guestbook-form button:hover {
       background-color: #ff85a2;
     }
-    /* 초원 영역 */
     .meadow {
       position: relative;
       width: 100%;
@@ -101,7 +99,8 @@
   </style>
 </head>
 <body>
-  <!-- 네비게이션 바 -->
+<div id="guestbook-entries"></div>
+  <!-- Navigation Bar -->
   <nav class="navbar">
     <ul>
       <li><a href="index.html">🏠 Home</a></li>
@@ -109,8 +108,7 @@
       <li><a href="books.html">📚 Reading List</a></li>
     </ul>
   </nav>
-  
-  <!-- 게스트북 폼 -->
+  <!-- Guestbook Form -->
   <form class="guestbook-form">
     <label>🐣 Nickname:
       <input type="text" name="nickname" required>
@@ -136,91 +134,89 @@
     </label>
     <button type="submit">🌸 Submit to Guestbook</button>
   </form>
-  
-  <!-- 초원 영역: 캐릭터 이미지가 추가됩니다 -->
+  <!-- 캐릭터들이 돌아다니는 초원 -->
   <div class="meadow">
-    <!-- JavaScript로 캐릭터가 동적으로 생성됩니다 -->
+    <!-- 캐릭터 이미지들이 JS로 추가됩니다 -->
   </div>
-  
-  <!-- JavaScript 코드 -->
-  <script>
-    // ※ webhookUrl은 Google Apps Script 웹앱의 URL입니다.
-    //    데이터 저장 및 불러오기를 위한 백엔드 역할을 합니다.
-    //    만약 지금 데이터 통신을 사용하지 않을 계획이면, 관련 fetch 호출을 제거할 수 있습니다.
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
-    
-    // 폼 제출 이벤트: 데이터를 백엔드(웹앱)로 전송
-    document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      
-      try {
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          body: formData
-        });
-        const resultText = await res.text();
-        if (res.ok) {
-          document.body.innerHTML = `
-            <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
-              <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
-              <p>Thank you for signing the guestbook 🐾</p>
-              <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
-            </div>
-          `;
-        } else {
-          console.error(resultText);
-          alert("Oops! Something went wrong. Please try again later.");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Error submitting the form.");
-      }
+
+  // 폼 제출 이벤트 (POST 요청)
+ <script>
+
+const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+
+document.querySelector('.guestbook-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      body: formData
     });
-    
-    // GET 요청: 백엔드에서 캐릭터 데이터(게스트북 항목)를 받아와 초원에 표시
-    async function loadCharacters() {
-      try {
-        const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
-        const data = await response.json();
-        data.forEach((entry, index) => {
-          createAnimal(entry.character, entry.message, index);
-        });
-      } catch (error) {
-        console.error("데이터 불러오기 오류:", error);
-      }
+
+    const resultText = await res.text();
+    if (res.ok) {
+      document.body.innerHTML = 
+        <div style="font-family:'Comic Sans MS';text-align:center;padding:50px;background-color:#fff0f5;border-radius:20px;">
+          <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
+          <p>Thank you for signing the guestbook 🐾</p>
+          <a href="guestbook.html" style="display:inline-block;margin-top:20px;font-size:18px;color:#ff69b4;text-decoration:none;">🔙 Back to Guestbook</a>
+        </div>
+      ;
+    } else {
+      console.error(resultText);
+      alert("Oops! Something went wrong. Please try again later.");
     }
-    
-    // 캐릭터 이미지 경로 반환 함수
-    function getCharacterImage(character) {
-      // GitHub 저장소의 Raw URL로 변경할 수도 있음:
-      // return `https://raw.githubusercontent.com/yourusername/yourrepo/main/images/${character}.png`;
-      return `./images/${character}.png`;
-    }
-    
-    // 캐릭터 생성 함수: 초원에 이미지와 선택적으로 말풍선(메시지) 추가
-    function createAnimal(character, message, index) {
-      const container = document.querySelector(".meadow");
-      const animal = document.createElement("img");
-      animal.src = getCharacterImage(character);
-      animal.classList.add("animal");
-      animal.style.left = `${Math.random() * 80}%`;
-      animal.style.bottom = `${Math.random() * 30 + 10}px`;
-      
-      if (message && message.trim() !== "") {
-        const bubble = document.createElement("div");
-        bubble.classList.add("speech-bubble");
-        bubble.innerText = message;
-        animal.appendChild(bubble);
-      }
-      
-      container.appendChild(animal);
-    }
-    
-    // 페이지 로드시 캐릭터 데이터를 불러옴
-    window.addEventListener("DOMContentLoaded", loadCharacters);
-  </script>
+  } catch (error) {
+    console.error(error);
+    alert("Error submitting the form.");
+  }
+});
+</script>
+
+  
+async function loadCharacters() {
+  const webhookUrl = "https://script.google.com/macros/s/AKfycbyHWrILW8xI0cLqW5_tijwYfgTnF1XOVBwyfZR2O0e2L0uOPNgmHeKUtnBTEKCU-vkS/exec";
+  try {
+    const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+    const data = await response.json();
+    data.forEach((entry, index) => {
+      createAnimal(entry.character, entry.message, index);
+    });
+  } catch (error) {
+    console.error("데이터 불러오기 오류:", error);
+  }
+}
+
+// 캐릭터 이미지 경로 반환 함수
+function getCharacterImage(character) {
+  return ./images/${character}.png;  // 또는 "/images/..."
+}
+
+// 캐릭터 생성 함수
+function createAnimal(character, message, index) {
+  const container = document.querySelector(".meadow");
+  const animal = document.createElement("img");
+  animal.src = getCharacterImage(character);
+  animal.classList.add("animal");
+  animal.style.left = ${Math.random() * 80}%;
+  animal.style.bottom = ${Math.random() * 30 + 10}px;
+
+  if (message) {
+    const bubble = document.createElement("div");
+    bubble.classList.add("speech-bubble");
+    bubble.innerText = message;
+    animal.appendChild(bubble);
+  }
+
+  container.appendChild(animal);
+}
+
+// 페이지 로드 시 실행
+window.addEventListener("DOMContentLoaded", loadCharacters);
+
+</script>
 </body>
 </html>
-
