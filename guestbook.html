@@ -171,44 +171,46 @@
     }
   });
   
-  // GET 요청으로 캐릭터 데이터를 받아오기
-  async function loadCharacters() {
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbyxcNyo5iFrFsVICEV2YOfEim1XFsTqLtEQIyIj71bALtlA3sf61eW3czeHirhhIZLY/exec";
-    try {
-      const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
-      const data = await response.json();
-      data.forEach((entry, index) => {
-        createAnimal(entry.character, entry.message, index);
-      });
-    } catch (error) {
-      console.error("데이터 불러오기 오류:", error);
-    }
+async function loadCharacters() {
+  const webhookUrl = "https://script.google.com/macros/s/AKfycbyxcNyo5iFrFsVICEV2YOfEim1XFsTqLtEQIyIj71bALtlA3sf61eW3czeHirhhIZLY/exec";
+  try {
+    const response = await fetch(webhookUrl, { method: "GET", mode: "cors" });
+    const data = await response.json();
+    data.forEach((entry, index) => {
+      createAnimal(entry.character, entry.message, index);
+    });
+  } catch (error) {
+    console.error("데이터 불러오기 오류:", error);
   }
-  
-  // 페이지 로드 시 캐릭터 데이터를 불러옵니다.
-  window.addEventListener("DOMContentLoaded", loadCharacters);
-  
-  // 캐릭터 이미지 경로 반환 함수
-  function getCharacterImage(character) {
-    return `images/${character}.png`;
+}
+
+// 캐릭터 이미지 경로 반환 함수
+function getCharacterImage(character) {
+  return `./images/${character}.png`;  // 또는 "/images/..."
+}
+
+// 캐릭터 생성 함수
+function createAnimal(character, message, index) {
+  const container = document.querySelector(".meadow");
+  const animal = document.createElement("img");
+  animal.src = getCharacterImage(character);
+  animal.classList.add("animal");
+  animal.style.left = `${Math.random() * 80}%`;
+  animal.style.bottom = `${Math.random() * 30 + 10}px`;
+
+  if (message) {
+    const bubble = document.createElement("div");
+    bubble.classList.add("speech-bubble");
+    bubble.innerText = message;
+    animal.appendChild(bubble);
   }
-  
-  // 캐릭터 생성 함수
-  function createAnimal(character, message, index) {
-    const container = document.querySelector(".meadow");
-    const animal = document.createElement("img");
-    animal.src = getCharacterImage(character);
-    animal.classList.add("animal");
-    animal.style.left = `${Math.random() * 80}%`;
-    animal.style.bottom = `${Math.random() * 30 + 10}px`;
-    if (message) {
-      const bubble = document.createElement("div");
-      bubble.classList.add("speech-bubble");
-      bubble.innerText = message;
-      animal.appendChild(bubble);
-    }
-    container.appendChild(animal);
-  }
+
+  container.appendChild(animal);
+}
+
+// 페이지 로드 시 실행
+window.addEventListener("DOMContentLoaded", loadCharacters);
+
 </script>
 </body>
 </html>
