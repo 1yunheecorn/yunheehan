@@ -250,7 +250,7 @@
         const res = await fetch(webhookUrl, { method: "GET", mode: "cors" });
         const data = await res.json();
         data.forEach((entry, index) => {
-          createAnimal(entry.character, entry.message, index);
+          createAnimal(entry.character, entry.nickname, entry.message, index);
         });
       } catch (error) {
         console.error("불러오기 오류:", error);
@@ -274,7 +274,7 @@
 
       const bubble = document.createElement("div");
       bubble.className = "speech-bubble";
-      bubble.textContent = message;
+      bubble.textContent = message, nickname;
 
       wrapper.appendChild(img);
       if (message) wrapper.appendChild(bubble);
