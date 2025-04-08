@@ -158,13 +158,14 @@ document.querySelector('.guestbook-form').addEventListener('submit', async funct
 
     const resultText = await res.text();
     if (res.ok) {
-    document.body.innerHTML = `
+   document.body.innerHTML = `
   <div style="font-family:'Comic Sans MS'; text-align:center; padding:50px; background-color:#fff0f5; border-radius:20px;">
     <h1 style="color:#ff69b4;">🌸 Yay! Your message has been submitted! 🌸</h1>
     <p>Thank you for signing the guestbook 🐾</p>
     <a href="guestbook.html" style="display:inline-block; margin-top:20px; font-size:18px; color:#ff69b4; text-decoration:none;">🔙 Back to Guestbook</a>
   </div>
 `;
+
     } else {
       console.error(resultText);
       alert("Oops! Something went wrong. Please try again later.");
