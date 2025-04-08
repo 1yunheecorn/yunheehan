@@ -77,11 +77,14 @@
       overflow: hidden;
       margin-top: 50px;
     }
-    .animal {
+    /* 동물 이미지를 담는 컨테이너 */
+    .animal-container {
       position: absolute;
-      width: 80px;
-      transition: transform 1s ease;
       cursor: pointer;
+    }
+    .animal {
+      width: 80px;
+      display: block;
     }
     .speech-bubble {
       position: absolute;
@@ -189,44 +192,52 @@
       }
     }
 
-    // 캐릭터 이미지 경로 반환 함수 (정의됨)
+    // 캐릭터 이미지 경로 반환 함수
     function getCharacterImage(character) {
       return `./images/${character}.png`;
     }
 
-    // 캐릭터 생성 함수
+    // 캐릭터 생성 함수 (컨테이너를 사용)
     function createAnimal(character, message, index) {
       const container = document.querySelector(".meadow");
-      const animal = document.createElement("img");
-      // getCharacterImage 함수 사용
-      animal.src = getCharacterImage(character);
-      animal.classList.add("animal");
-      animal.style.left = `${Math.random() * 80}%`;
-      animal.style.bottom = `${Math.random() * 30 + 10}px`;
+
+      // 동물과 말풍선을 담을 컨테이너 div 생성
+      const animalContainer = document.createElement("div");
+      animalContainer.classList.add("animal-container");
+
+      // 동물 이미지 생성
+      const animalImg = document.createElement("img");
+      animalImg.src = getCharacterImage(character);
+      animalImg.classList.add("animal");
 
       // 이미지 로드 실패시 에러 로그 출력 (디버깅용)
-      animal.addEventListener("error", function() {
-        console.error("이미지 로드 실패: " + animal.src);
+      animalImg.addEventListener("error", function() {
+        console.error("이미지 로드 실패: " + animalImg.src);
       });
+
+      animalContainer.appendChild(animalImg);
 
       if (message) {
         const bubble = document.createElement("div");
         bubble.classList.add("speech-bubble");
         bubble.innerText = message;
-        bubble.style.display = "none"; // 말풍선 기본 숨김
-        // 수정: "풍선껌" → bubble
-        animal.appendChild(bubble);
+        bubble.style.display = "none";
+        animalContainer.appendChild(bubble);
 
-        // 동물 클릭 시 말풍선 토글
-        animal.addEventListener("click", function(e) {
+        // 동물 컨테이너 클릭 시 말풍선 토글
+        animalContainer.addEventListener("click", function(e) {
           bubble.style.display = (bubble.style.display === "none") ? "block" : "none";
           e.stopPropagation();
         });
       }
-      container.appendChild(animal);
+
+      // 랜덤 위치 배정 (컨테이너의 left와 bottom에 배정)
+      animalContainer.style.left = `${Math.random() * 80}%`;
+      animalContainer.style.bottom = `${Math.random() * 30 + 10}px`;
+
+      container.appendChild(animalContainer);
     }
 
-    // 페이지 로드 시 캐릭터 로드
     window.addEventListener("DOMContentLoaded", loadCharacters);
   </script>
   <!-- 스크립트 코드 끝 -->
